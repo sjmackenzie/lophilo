@@ -21,13 +21,40 @@ If it's already loaded, reload:
 
 	sudo modprobe ftdi_sio vendor=0xfa66 product=0x2012
 
-Use putty
+## Output
+
+This is the resulting output
+
+	$ sudo modprobe ftdi_sio vendor=0xfa66 product=0x2012
+	$ dmesg | tail
+	[ 6027.031775] usb 2-1.1.4.1: FTDI USB Serial Device converter now attached to ttyUSB0
+	[ 6027.031845] ftdi_sio 2-1.1.4.1:1.1: FTDI USB Serial Device converter detected
+	[ 6027.031906] usb 2-1.1.4.1: Detected FT2232H
+	[ 6027.031910] usb 2-1.1.4.1: Number of endpoints 2
+	[ 6027.031914] usb 2-1.1.4.1: Endpoint 1 MaxPacketSize 512
+	[ 6027.031917] usb 2-1.1.4.1: Endpoint 2 MaxPacketSize 512
+	[ 6027.031921] usb 2-1.1.4.1: Setting MaxPacketSize 512
+	[ 6027.032328] usb 2-1.1.4.1: FTDI USB Serial Device converter now attached to ttyUSB1
+	[ 6027.032381] usbcore: registered new interface driver ftdi_sio
+	[ 6027.032386] ftdi_sio: v1.6.0:USB FTDI Serial Converters Driver
+
+## Terminal software
+
+
+Use putty 
 
 	sudo apt-get install putty
 
 Configure a new session using /dev/ttyUSB1
 
 NOTE: if you try to connect to /dev/ttyUSB0, the board will shutdown as soon as you press a key!
+
+You may need to add yourself to the group dialout or whatever group owns the created device:
+
+	$ ls -al /dev/ttyUSB1
+	crw-rw---- 1 root dialout 188, 1 May 21 18:24 /dev/ttyUSB1
+
+by modifying /etc/group and doing a relogin.
 
 ## Using the console
 

@@ -65,3 +65,27 @@ http://www.ibm.com/developerworks/linux/library/l-kexec/index.html
 	apt-get install kexec-tools
 	kexec -l /media/lophilofat32/zImage --append="noinitrd mem=128M console=ttyS2,115200 root=/dev/mmcblk0p2 rootfstype=ext4 rw rootwait init=/sbin/init"
 
+### Keeping track of the OS image
+
+We can put mostly everything under git control to make sure we keep track of changes.
+
+Note that you'll probably want to do these git operations and archiving under root.
+
+One key thing is to make sure we keep the "empty" directories:
+
+	find . -type d -empty -exec touch {}/.gitignore \;
+
+The OS can fail pretty badly (even preventing boot) if directories such as /dev are not created!
+
+Don't forget to `apt-get clean` before adding the changes from a new set of debian packages.
+
+## Lophilo OS usage
+
+### mDNS (zeroconf)
+
+Since the Lophilo board can boot in different environment with no preset DNS entry, we've added Avahi to broadcast the name lophilo1.local. If you have a zeroconf enabled host (MacOS, Ubuntu), you should be able to directly ping/ssh lophilo1.local even if the IP changes:
+
+	$ ping lophilo1.local
+	PING lophilo1.local (10.236.10.139) 56(84) bytes of data.
+	64 bytes from lophilo1.local (10.236.10.139): icmp_req=1 ttl=64 time=0.569 ms
+	64 bytes from lophilo1.local (10.236.10.139): icmp_req=2 ttl=64 time=0.527 ms

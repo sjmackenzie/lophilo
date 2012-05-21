@@ -19,7 +19,11 @@ edit /etc/exports
 
 export the filesystems:
 
-	sudo service  nfs-kernel-server restart
+	sudo exportfs -r
+
+...or...
+
+	sudo service nfs-kernel-server restart
 
 ## Kernel command-line
 
@@ -33,3 +37,6 @@ this is useful when we cannot or don't want to edit the kernel boot parameters:
 	kexec -l /media/lophilofat32/zImage --append="mem=128M ip=dhcp noinitrd init=/sbin/init root=/dev/nfs nfsroot=10.236.10.97:/home/rngadam/lophilo-OS.nfs,nolock,tcp rw nfsrootdebug rootwait rootfstype=nfs"
 	kexec -e
 
+## references
+
+ * http://adminotes.blogspot.jp/2012/05/how-to-setup-diskless-ubuntu-1204-with.html
