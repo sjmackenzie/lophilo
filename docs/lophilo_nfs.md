@@ -25,21 +25,6 @@ export the filesystems:
 
 	ip=dhcp noinitrd init=/sbin/init root=/dev/nfs nfsroot=10.236.10.97:/home/rngadam/lophilo-OS rw nfsrootdebug rootwait
 
-## performance issue
-
-lots of thrashing on the server-side around the ext4 journaling...
-
-should also try these additional postfix for NFS
-
- ,rsize=8192,,wsize=8192	
-
- or these:
-
- vers=4,udp,rsize=4096,wsize=4096,nolock,addr=10.236.10.94
-
- or these:
-vers=3,rsize=1024,wsize=1024 
-
 
 ## re-booting using kexec
 
