@@ -1,28 +1,49 @@
 #!/usr/bin/env node
+var util = require('util');
+var xml = require("node-xml");
+var repl = require('repl');
 
-var libxmljs = require('libxmljs');
-var fs = require('fs');
+r = repl.start();
 
-// xpath queries
-//var gchild = xmlDoc.get('//grandchild');
+var parser = new xml.SaxParser(function(cb) {
+  cb.onStartDocument(function() {
 
-//console.log(gchild.text());  // prints 'grandchild content'
+  });
+  cb.onEndDocument(function() {
 
-//var children = xmlDoc.root().childNodes();
-//var child = children[0];
+  });
+  cb.onStartElementNS(function(elem, attrs, prefix, uri, namespaces) {
+      util.log("=> Started: " + elem + " uri="+uri +" (Attributes: " + JSON.stringify(attrs) + " )");
+	  if(elem !='td' && elem != 'tr') {
+		return;
+	  }
+      util.log("<= End: " + elem + " uri="+uri + "\n");
+      parser.pause();// pause the parser		 
+			r.context.elem = elem;
+			r.context.attrs = attrs;
+			r.context.prefix = prefix;
+			r.context.uri = uri;
+			r.context.namespaces = namespaces;
+			r.context.parser = parser;	  
+  });
+  cb.onEndElementNS(function(elem, prefix, uri) {
 
-//console.log(child.attr('foo').value()); // prints 'bar'
+  });
+  cb.onCharacters(function(chars) {
+      //util.log('<CHARS>'+chars+"</CHARS>");
+  });
+  cb.onCdata(function(cdata) {
+      util.log('<CDATA>'+cdata+"</CDATA>");
+  });
+  cb.onComment(function(msg) {
+      util.log('<COMMENT>'+msg+"</COMMENT>");
+  });
+  cb.onWarning(function(msg) {
+      util.log('<WARNING>'+msg+"</WARNING>");
+  });
+  cb.onError(function(msg) {
+      util.log('<ERROR>'+JSON.stringify(msg)+"</ERROR>");
+  });
+});
 
-
-function parseFileContent(err, content) {
-  if (err) {
-    return console.log(err);
-  }
-  console.log('read: ' + content.length);
-  var xmldoc = libxmljs.parseXmlString(content);
-  console.dir('xmldoc:' + xmldoc);
-  r = require('repl').start();
-  r.context.xmldoc = xmldoc;
-}
-
-fs.readFile('./library_report.xml', 'utf-8', parseFileContent);
+parser.parseFile("../library_report.doc");
