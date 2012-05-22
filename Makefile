@@ -1,45 +1,46 @@
 UPSTREAM=${HOME}/upstream
 LOPHILO_DIR=.
+export APT_GET:=apt-get -y
 
 .PHONY: all nodejs upstream openssl v8 npm2debian zlib build-couchdb setup
 
 all: 
 	@echo "mount disks with `make aufs`"
 
-setup: /usr/sbin/openvpn /usr/bin/screen /usr/bin/ccache /usr/bin/distcc /usr/lib/libncurses.a /usr/bin/dpkg-buildpackage /usr/bin/python /usr/bin/brctl /opt/codesourcery/arm-2011.09/bin/arm-none-linux-gnueabi-c++ /opt/codesourcery/ia32-2011.09/bin/i686-elf-gcc
+setup: /usr/sbin/openvpn /usr/bin/screen /usr/bin/ccache /usr/bin/distcc /usr/lib/libncurses.a /usr/bin/dpkg-buildpackage /usr/bin/python /usr/bin/brctl /opt/codesourcery/arm-2011.09/bin/arm-none-linux-gnueabi-c++ 
 
 /opt/codesourcery/arm-2011.09/bin/arm-none-linux-gnueabi-c++:
-	sudo apt-get install codesourcery-arm
+	sudo ${APT_GET} install codesourcery-arm
 
-/opt/codesourcery/ia32-2011.09/bin/i686-elf-gcc:
-	sudo apt-get install codesourcery-ia32
+#/opt/codesourcery/ia32-2011.09/bin/i686-elf-gcc:
+#	sudo ${APT_GET} install codesourcery-ia32
 
 /usr/bin/brctl:
-	sudo apt-get install bridge-utils
+	sudo ${APT_GET} install bridge-utils
 
 /usr/sbin/openvpn:
-	sudo apt-get install openvpn
+	sudo ${APT_GET} install openvpn
 
 /usr/bin/screen:
-	sudo apt-get install screen dvtm vim nfs-server nfs-client git openssh-server etckeeper smartmontools
+	sudo ${APT_GET} install screen dvtm vim nfs-server nfs-client git openssh-server etckeeper smartmontools
 
 /usr/lib/libncurses.a: 
-	sudo apt-get install zlib1g-dev libsdl-dev glib2.0-dev binutils-gold
+	sudo ${APT_GET} install zlib1g-dev libsdl-dev glib2.0-dev binutils-gold
 
 /usr/bin/ccache:
-	sudo apt-get install ccache
+	sudo ${APT_GET} install ccache
        
 /usr/bin/distcc:
-	sudo apt-get install distcc distcc-pump
+	sudo ${APT_GET} install distcc distcc-pump
 
 /usr/bin/mkimage:
-	sudo apt-get install libncurses5-dev kernel-package uboot-mkimage
+	sudo ${APT_GET} install libncurses5-dev kernel-package uboot-mkimage
 
 /usr/bin/dpkg-buildpackage:
-	sudo apt-get install devscripts dh-make debhelper fakeroot dpkg-dev
+	sudo ${APT_GET} install devscripts dh-make debhelper fakeroot dpkg-dev
 
 /usr/bin/python:
-	sudo apt-get install python
+	sudo ${APT_GET} install python
 
 /gdata/ccachevol:
 	sudo mkdir -p $@
@@ -47,7 +48,7 @@ setup: /usr/sbin/openvpn /usr/bin/screen /usr/bin/ccache /usr/bin/distcc /usr/li
 
 codesourcery: /opt/codesourcery/arm-2011.09/bin/arm-none-linux-gnueabi-gcc
 	# from our custom Lophilo repository...
-	sudo apt-get install codesourcery-arm
+	sudo ${APT_GET} install codesourcery-arm
 
 aufs: nodejs openssl v8 npm2debian zlib build-couchdb
 
