@@ -14,11 +14,13 @@ TODO: update to give instructions once we have a public debian repository
 
 ## Copy or checkout git repositories
 
-The lophilo keep repository should be the root to development:
+The lophilo git repository should be the root to development:
 
 * Lophilo: git@github.com:Lophilo/lophilo.git
 
-Checkout additional dependencies in lophilo/upstream:
+Checkout additional dependencies in lophilo/upstream.
+
+Dependencies:
 
 * Linux: git@github.com:Lophilo/lophilo.git
 
@@ -30,6 +32,10 @@ in your ~/.profile
 	if [ -d "$HOME/lophilo/bin" ] ; then
 		PATH="$HOME/lophilo/bin:$PATH"
 	fi
+
+Re-login or reload:
+
+	. ~/.profile
 
 ## Setup your environment
 

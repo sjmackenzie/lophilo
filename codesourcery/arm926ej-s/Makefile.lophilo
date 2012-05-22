@@ -15,4 +15,4 @@ repo:
 	sudo reprepro --basedir /var/www/repos/apt/${DEB_REPO} includedeb ${DEB_CODENAME} ${DEBPKG_NAME}
 
 install:
-	find  .. -maxdepth 1 -executable -type f -exec ln -s {} . \;
+	find  .. -maxdepth 1 -executable -type f -exec ln -f -s {} . \;

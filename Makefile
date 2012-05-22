@@ -7,13 +7,16 @@ export APT_GET:=apt-get -y
 all: 
 	@echo "mount disks with `make aufs`"
 
-setup: /usr/sbin/openvpn /usr/bin/screen /usr/bin/ccache /usr/bin/distcc /usr/lib/libncurses.a /usr/bin/dpkg-buildpackage /usr/bin/python /usr/bin/brctl /opt/codesourcery/arm-2011.09/bin/arm-none-linux-gnueabi-c++ 
+setup: /usr/sbin/openvpn /usr/bin/screen /usr/bin/ccache /usr/bin/distcc /usr/lib/libncurses.a /usr/bin/dpkg-buildpackage /usr/bin/python /usr/bin/brctl /opt/codesourcery/arm-2011.09/bin/arm-none-linux-gnueabi-c++ /usr/bin/realpath
 
 /opt/codesourcery/arm-2011.09/bin/arm-none-linux-gnueabi-c++:
 	sudo ${APT_GET} install codesourcery-arm
 
 #/opt/codesourcery/ia32-2011.09/bin/i686-elf-gcc:
 #	sudo ${APT_GET} install codesourcery-ia32
+
+/usr/bin/realpath:
+	sudo ${APT_GET} install realpath 
 
 /usr/bin/brctl:
 	sudo ${APT_GET} install bridge-utils
