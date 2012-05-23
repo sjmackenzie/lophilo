@@ -213,20 +213,23 @@ Added
 * crypto and utilies (all as module)
 
 Disabled
-
+:
 * Most other Ethernet drivers than MACB (we're likely to have only one)
 	* CONFIG_NET_CADENCE & CONFIG_MACB (the built-in AT91 network controller)
 
-Released as lophilo-os-20120522A
-
+Tagged as lophilo-os-20120522A
 
 ## ARM AC97 Sound
 
+These options must be enabled to detect AC97 sound card:
+
 CONFIG_SND_ARM and CONFIG_SND_ATMEL_AC97C
 
+## USB network dongle
 
+Device Drivers > Network device support > USB Network Adapters > Realtek 8192C USB WiFi
 
-
+CONFIG_RTL8192CU_UPSTREAM
 
 
 

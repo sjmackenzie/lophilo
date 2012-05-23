@@ -1,8 +1,18 @@
-Insert the custom module from RealTek
+# Lophilo and USB Adapter
+
+Remove other driver 
+
+	modprobe -r rtl8192cu
+
+Install firmware:
+
+	apt-get install firmware-realtek
+
+Build and compile the custom module from RealTek
 
 	# insmod ./8192cu.ko
 
-Find the network you want...
+Find the network you want to add
 
  iwlist wlan0 scanning
 
@@ -21,11 +31,7 @@ Find the network you want...
                     Quality=100/100  Signal level=92/100  
 
 
-Create a wpa_supplicant.conf configuration file
-
-	wpa_supplicant -Dwext -iwlan0 -c/etc/wpa_supplicant/wpa_supplicant.conf
-
-Looks like:
+Create a wpa_supplicant.conf configuration file. Looks like:
 
 	ap_scan=1
 	ctrl_interface=/var/run/wpa_supplicant
@@ -40,8 +46,29 @@ Looks like:
 		group=TKIP
 	}
 
+Load the configuration:
+
+	wpa_supplicant -Dwext -iwlan0 -c/etc/wpa_supplicant/wpa_supplicant.conf
 
 Test it:
 
 	ping -I wlan0 www.wired.com
+
+## TODO
+
+### Error message when integrated with kernel
+
+cp: cannot stat `/home/rngadam/lophilo/obj/linux/autoconf_rtl8192c_usb_linux.h': No such file or directory
+
+### does not build in debug mode it seems..
+
+	root@lophilo1:/lib/modules# ls
+	3.4.0-rc7+  3.4.0-rc7-00030-g755ea09-dirty
+	root@lophilo1:/lib/modules# find . -name 8192cu.ko
+	./3.4.0-rc7+/kernel/drivers/net/wireless/rtl8192cu/8192cu.ko
+
+
+(nothing in )
+
+### lots of low-level debug information
 
