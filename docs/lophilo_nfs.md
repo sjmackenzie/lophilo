@@ -5,7 +5,11 @@
 Slightly different in two ways:
 
 * /etc/networks/interface must not try to reconfigure eth0 (will break the connection to NFS!)
-* /etc/fstab must not try to mount a root filesystem
+	* set to manual
+* /etc/fstab must not try to mount a root filesystem but use NFSroot instead
+	* /dev/root instead
+
+if going from NFS to local, don't forget to revert these changes (including removing mounting the root OS partition in /media)
 
 ## NFS /etc/exports
 

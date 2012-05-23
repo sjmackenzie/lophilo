@@ -1,4 +1,3 @@
-
 # Converting GNU project to run on Lophilo as bare ARM
 
 Example uses lwip

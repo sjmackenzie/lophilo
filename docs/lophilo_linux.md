@@ -191,83 +191,38 @@ CONFIG_DEFAULT_HOSTNAME: Assign default hostname to lophilo
 
 	* Kernel hacking: separate configuration
 
-## Kernel crash
+## Modular configuration
 
-at91_ohci at91_ohci: can't request overcurrent gpio 0
-at91_ohci at91_ohci: AT91 OHCI
-at91_ohci at91_ohci: new USB bus registered, assigned bus number 2
-at91_ohci at91_ohci: irq 22, io mem 0x00700000
-Unable to handle kernel NULL pointer dereference at virtual address 0000000c
-pgd = c0004000
-[0000000c] *pgd=00000000
-Internal error: Oops: 5 [#1] ARM
-Modules linked in:
-CPU: 0    Not tainted  (3.4.0-rc6+ #10)
-PC is at ohci_irq+0xc/0x1ac
-LR is at usb_hcd_irq+0x34/0x44
-pc : [<c02bd5dc>]    lr : [<c02a55b0>]    psr: 60000093
-sp : c7821cf8  ip : c049f148  fp : 00000001
-r10: c0610564  r9 : c0636fd1  r8 : 00000016
-r7 : 00000080  r6 : 00000000  r5 : 00000001  r4 : c7920800
-r3 : 00000001  r2 : 00000021  r1 : c02bd5d0  r0 : c7920800
-Flags: nZCv  IRQs off  FIQs on  Mode SVC_32  ISA ARM  Segment kernel
-Control: 0005317f  Table: 70004000  DAC: 00000017
-Process swapper (pid: 1, stack limit = 0xc7820270)
-Stack: (0xc7821cf8 to 0xc7822000)
-1ce0:                                                       00000001 a0000093
-1d00: 00000001 00000001 00000080 c02a55b0 c7924f20 c004ef44 00000020 c01bfeb8
-1d20: 80000013 c0610564 00000016 00000000 c7821da4 00000003 c06379b0 60000013
-1d40: 60000013 c004f0e8 c0610564 c0050fe0 c061946c c004e8c0 000000c0 c000ed0c
-1d60: c001cde8 60000013 fefff000 c000e118 c060d798 c060d7e0 c060d7e0 00001965
-1d80: c06379d6 c0637a05 c060d798 00000035 00000003 c06379b0 60000013 60000013
-1da0: 00000000 c7821db8 c001cb6c c001cde8 60000013 ffffffff 6963686f 6463685f
-1dc0: 6273753a 00000032 c06379b0 00000000 00000000 60000013 00000000 00000000
-1de0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
-1e00: 00000000 00000000 00000000 00000000 00000006 00000000 00000000 c7821e7c
-1e20: c060c510 c0539608 00000000 c0627920 c060c510 00000011 00000000 c0475d68
-1e40: 00000000 c7821e54 00000016 c01f0884 c055b73c c0539608 c053b8f0 c7849640
-1e60: c7821e7c c7920800 c7920800 00000016 00700000 c01f08dc c7920800 c056f07c
-1e80: c7821e84 c7821e90 c02a6a28 c056f07c 00000016 c056efc8 00700000 00000000
-1ea0: c060ac9c c7920400 c060ad58 c7920800 c060c510 c7920a80 c8c00000 c0571020
-1ec0: c060c508 c0474640 00000000 00000000 c784be08 00000000 20000013 c0642678
-1ee0: 20000013 c060c510 00000000 c0628018 c05fcc14 c05d820c 00000000 c01f4c3c
-1f00: c01f4c28 c01f3840 c060c510 c0628018 c060c544 00000000 c05eba24 c01f3a44
-1f20: c0628018 c01f39b8 00000000 c01f21ec c78183cc c78439f0 c0628018 c061ce20
-1f40: c7927e60 c01f30a4 c053b8f0 c05f81ec c0628018 c7820000 c06370a0 00000000
-1f60: c05eba24 c05fcc14 c05d820c c01f3ee4 c01f4c60 c0642d94 c7820000 c06370a0
-1f80: 00000000 c05eba24 c05d820c c05eba68 c05f81ec c0008784 00000006 00000006
-1fa0: 00000000 c05f81e8 c05f81ec 00000006 c05f81cc c06370a0 000000ba c05d820c
-1fc0: 00000000 c05d8864 00000006 00000006 c05d820c 00000000 00000000 c05d8784
-1fe0: c000ee04 00000013 00000000 00000000 00000000 c000ee04 ffbfabbb bfbaddfe
-[<c02bd5dc>] (ohci_irq+0xc/0x1ac) from [<c02a55b0>] (usb_hcd_irq+0x34/0x44)
-[<c02a55b0>] (usb_hcd_irq+0x34/0x44) from [<c004ef44>] (handle_irq_event_percpu+0x50/0x1cc)
-[<c004ef44>] (handle_irq_event_percpu+0x50/0x1cc) from [<c004f0e8>] (handle_irq_event+0x28/0x38)
-[<c004f0e8>] (handle_irq_event+0x28/0x38) from [<c0050fe0>] (handle_level_irq+0x80/0xcc)
-[<c0050fe0>] (handle_level_irq+0x80/0xcc) from [<c004e8c0>] (generic_handle_irq+0x28/0x3c)
-[<c004e8c0>] (generic_handle_irq+0x28/0x3c) from [<c000ed0c>] (handle_IRQ+0x30/0x98)
-[<c000ed0c>] (handle_IRQ+0x30/0x98) from [<c000e118>] (__irq_svc+0x38/0x60)
-[<c000e118>] (__irq_svc+0x38/0x60) from [<c001cde8>] (vprintk+0x1dc/0x4e8)
-[<c001cde8>] (vprintk+0x1dc/0x4e8) from [<c0475d68>] (printk+0x20/0x30)
-[<c0475d68>] (printk+0x20/0x30) from [<c01f0884>] (__dev_printk+0x40/0x64)
-[<c01f0884>] (__dev_printk+0x40/0x64) from [<c01f08dc>] (_dev_info+0x34/0x48)
-[<c01f08dc>] (_dev_info+0x34/0x48) from [<c02a6a28>] (usb_add_hcd+0x404/0x62c)
-[<c02a6a28>] (usb_add_hcd+0x404/0x62c) from [<c0474640>] (ohci_hcd_at91_drv_probe+0x3b4/0x4a4)
-[<c0474640>] (ohci_hcd_at91_drv_probe+0x3b4/0x4a4) from [<c01f4c3c>] (platform_drv_probe+0x14/0x18)
-[<c01f4c3c>] (platform_drv_probe+0x14/0x18) from [<c01f3840>] (driver_probe_device+0x78/0x1f0)
-[<c01f3840>] (driver_probe_device+0x78/0x1f0) from [<c01f3a44>] (__driver_attach+0x8c/0x90)
-[<c01f3a44>] (__driver_attach+0x8c/0x90) from [<c01f21ec>] (bus_for_each_dev+0x54/0x7c)
-[<c01f21ec>] (bus_for_each_dev+0x54/0x7c) from [<c01f30a4>] (bus_add_driver+0x1b4/0x278)
-[<c01f30a4>] (bus_add_driver+0x1b4/0x278) from [<c01f3ee4>] (driver_register+0x78/0x178)
-[<c01f3ee4>] (driver_register+0x78/0x178) from [<c05eba68>] (ohci_hcd_mod_init+0x44/0x84)
-[<c05eba68>] (ohci_hcd_mod_init+0x44/0x84) from [<c0008784>] (do_one_initcall+0x30/0x168)
-[<c0008784>] (do_one_initcall+0x30/0x168) from [<c05d8864>] (kernel_init+0xe0/0x198)
-[<c05d8864>] (kernel_init+0xe0/0x198) from [<c000ee04>] (kernel_thread_exit+0x0/0x8)
-Code: c0570f00 e92d40f8 e59060d8 e1a04000 (e596300c)
----[ end trace 01f3805d32a11584 ]---
-Kernel panic - not syncing: Fatal exception in interrupt
+see: Lophilo/lophilo/20120522-modular
+
+Disabled CONFIG_VFP for now
+
+Moved as many drivers to modules as possible
+* IO Scheduler
+* Bluetooth
+* Wifi modules
+* USB Wifi
+* Watchdog module
+* CDROM/DVD filesystem support
+* NTFS filesystem
+
+Added
+
+* Netconsole (as module)
+* some additional code pages (as module)
+* crypto and utilies (all as module)
+
+Disabled
+
+* Most other Ethernet drivers than MACB (we're likely to have only one)
+	* CONFIG_NET_CADENCE & CONFIG_MACB (the built-in AT91 network controller)
+
+Released as lophilo-os-20120522A
 
 
+## ARM AC97 Sound
 
+CONFIG_SND_ARM and CONFIG_SND_ATMEL_AC97C
 
 
 

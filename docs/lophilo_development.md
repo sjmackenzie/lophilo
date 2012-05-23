@@ -18,11 +18,10 @@ The lophilo git repository should be the root to development:
 
 * Lophilo: git@github.com:Lophilo/lophilo.git
 
-Checkout additional dependencies in lophilo/upstream.
-
-Dependencies:
+Checkout additional dependencies in lophilo/upstream. Dependencies:
 
 * Linux: git@github.com:Lophilo/lophilo.git
+* Firmware: git@github.com:Lophilo/firmware-binaries.git
 
 ## Setup your path
 
@@ -43,6 +42,10 @@ To install needed Ubuntu packages, In ~/lophilo:
 	
 	makel setup
 
+You should then change to ~/lophilo/codesourcery/arm926ej-s and execute:
+
+	makel install
+
 ## Utilities
 
 One of the utility is `makel`, a simple wrapper for make:
@@ -57,3 +60,19 @@ Compiling the kernel takes the longest:
 	cd ~/lophilo/upstream
 
 if you can, copy an obj from another machine that has already compiled it.
+
+## Update the MicroSD card
+
+Setup NFS sharing from your workstation.
+
+Boot your Lophilo using kexec to mount the NFS
+
+Update your NFS share from lophilo/upstream/linux:
+
+	makel setup-nfs-dir
+
+From serial or ssh console, launch the MicroSD update by running the Makefile in the root directory
+	
+	make -f Makefile.update-microsd
+
+Reboot!

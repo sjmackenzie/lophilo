@@ -46,11 +46,11 @@ Write out with `w`
 
 format for FAT32:
 
-	sudo mkfs.msdos -F 32 /dev/sdb1 -n LOPHILOFAT32
+	sudo mkfs.msdos -F 32 /dev/sdb1 -n boot
 
 format for EXT4:
 
-	sudo mkfs.ext4 -L LOPHILOEXT4 /dev/sdb2
+	sudo mkfs.ext4 -L os /dev/sdb2
 
 ## disabling automated time checking...
 
@@ -60,7 +60,7 @@ output from creation:
 
 we probably don't want this in embedded systems as we'd rather be explicit about the checking. 
 
-	sudo tune2fs -c 0 -i 0 /dev/sdb2
+	ls
 
 ## mounting
 
