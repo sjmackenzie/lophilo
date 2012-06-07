@@ -76,3 +76,26 @@ From serial or ssh console, launch the MicroSD update by running the Makefile in
 	make -f Makefile.update-microsd
 
 Reboot!
+
+## git
+
+for Lophilo git repository, push all branches and tags always:
+
+	[remote "origin"]
+	    url = ...
+        push = +refs/heads/*:refs/heads/*
+        push = +refs/tags/*:refs/tags/*
+
+## Connecting your Lophilo to the Internet through your computer
+
+In Ubuntu 12.04:
+
+* plug in your Lophilo Ethernet port in your computer Ethernet port
+* connect to wireless
+* click tray wifi icon
+* Edit connections > Wired > [select wired connection] > Edit... > IPv4 Settings > Method:
+* Select "Shared to other computers"
+
+Your Lophilo should now be able to self-configure the Ethernet interface.
+
+If you can't resolv, make sure there is nothing in your /etc/resolv.conf

@@ -8,11 +8,9 @@ Install firmware:
 
 	apt-get install firmware-realtek
 
-Build and compile the custom module from RealTek
+Build and compile the custom module from RealTek (from the distro, you can use `insmod ./8192cu.ko`)
 
-	# insmod ./8192cu.ko
-
-Find the network you want to add
+Find the network you want to add:
 
  iwlist wlan0 scanning
 
@@ -53,22 +51,3 @@ Load the configuration:
 Test it:
 
 	ping -I wlan0 www.wired.com
-
-## TODO
-
-### Error message when integrated with kernel
-
-cp: cannot stat `/home/rngadam/lophilo/obj/linux/autoconf_rtl8192c_usb_linux.h': No such file or directory
-
-### does not build in debug mode it seems..
-
-	root@lophilo1:/lib/modules# ls
-	3.4.0-rc7+  3.4.0-rc7-00030-g755ea09-dirty
-	root@lophilo1:/lib/modules# find . -name 8192cu.ko
-	./3.4.0-rc7+/kernel/drivers/net/wireless/rtl8192cu/8192cu.ko
-
-
-(nothing in )
-
-### lots of low-level debug information
-

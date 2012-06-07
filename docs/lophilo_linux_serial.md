@@ -38,6 +38,8 @@ This is the resulting output
 	[ 6027.032381] usbcore: registered new interface driver ftdi_sio
 	[ 6027.032386] ftdi_sio: v1.6.0:USB FTDI Serial Converters Driver
 
+...you can also use the debug=1 option.
+
 ## Terminal software
 
 

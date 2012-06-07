@@ -231,8 +231,9 @@ Device Drivers > Network device support > USB Network Adapters > Realtek 8192C U
 
 CONFIG_RTL8192CU_UPSTREAM
 
+## Swap
 
-
+General setup > Support for paging of anonymous memory (swap) needs to be enabled
 
 
 

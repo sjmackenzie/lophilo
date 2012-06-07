@@ -39,14 +39,12 @@ noinitrd mem=128M console=ttyS2,115200 root=/dev/mmcblk0p2 rootfstype=ext4 rw ro
 
 http://www.kroonen.eu/wiki/Debootstrap%20Debian
 
-second stage install (local packages)
+second stage install( local packages)
 
 	/debootstrap/deboostrap --second-stage
 	apt-get update
 	apt-get install
 	apt-get install build-essential git ntpdate openssh-server nfs-client screen sudo
-
-
 
 
 afterboot in init=/bin/sh (assuming the /etc/fstab has been modified):
@@ -89,3 +87,46 @@ Since the Lophilo board can boot in different environment with no preset DNS ent
 	PING lophilo1.local (10.236.10.139) 56(84) bytes of data.
 	64 bytes from lophilo1.local (10.236.10.139): icmp_req=1 ttl=64 time=0.569 ms
 	64 bytes from lophilo1.local (10.236.10.139): icmp_req=2 ttl=64 time=0.527 ms
+
+## networking fixes
+
+modify etc/dhcp/dhclient.conf to prepend domain-name-servers 8.8.8.8;
+apt-get install dnsutils
+change to have a decent default /etc/resolv.conf 
+
+	nameserver 8.8.8.8
+
+apt-get install libnss-mdns
+
+## security configuration
+
+Password-less login on serial console, no ssh login for root, 
+use lophilo+sudo instead of root for remote access.
+
+* remove everything except console in /etc/securetty
+* change /etc/inittab to add -a root (password-less login) to the serial console
+* apt-get install sudo
+* modify /etc/adduser.conf to uncomment EXTRA_GROUPS= and ADD_EXTRA_GROUPS=1
+* adduser --add_extra_groups sudo lophilo
+ * Full name: Lophilo Default
+* usermod -a -G sudo lophilo
+* passwd lophilo -> lophilo1
+
+## autocleaning install
+
+sudo apt-get install localepurge
+
+sudo apt-get install deborphan
+sudo deborphan | xargs sudo apt-get -y remove --purge
+
+## additional basic packages
+
+apt-get install strace
+
+## updated database
+
+apt-get update
+
+## disable nfs-common
+
+apt-get remove nfs-common

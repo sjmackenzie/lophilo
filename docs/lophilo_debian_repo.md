@@ -11,8 +11,6 @@ pub   2048R/37FC6E55 2012-03-13
 uid                  Ricky Ng-Adam (For signing Debian packages) <rngadam@lophilo.com>
 sub   2048R/A84DD3F8 2012-03-13
 
-
-
 = client =ls
 
 

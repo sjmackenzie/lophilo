@@ -82,4 +82,9 @@ see Lophilo/linux/Makefile.lophilo:setup-microsd
 
 This target can be run from Lophilo/lophilo/linux submodule as:
 
-	makel setup-microsd
+	makel setup-
+
+## chown logs error
+
+First time you boot, you will get error with chown from the system log daemon.
+
